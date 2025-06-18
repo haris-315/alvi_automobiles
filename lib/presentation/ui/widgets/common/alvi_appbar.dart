@@ -7,7 +7,7 @@ PreferredSizeWidget alviAppBar({
   bool shouldShowPopButton = true,
 }) => AppBar(
   centerTitle: true,
-  backgroundColor: AppPalette.secondaryBackground,
+  backgroundColor: AppPalette.scaffoldBackground,
   title: Text(
     title,
     style: TextStyle(

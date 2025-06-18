@@ -12,34 +12,48 @@ class NoConnectionPage extends StatefulWidget {
 class _NoConnectionPageState extends State<NoConnectionPage> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                gradient: RadialGradient(
-                  colors: [
-                    AppPalette.midnightBlue.withValues(alpha: .3),
-                    AppPalette.deepOcean.withValues(alpha: .4),
-                    AppPalette.electricBlue.withValues(alpha: .3),
-                  ],
+    return Container(
+      color: AppPalette.scaffoldBackground,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: Stack(
+              children: [
+                Icon(
+                  MdiIcons.cellphone,
+                  size: 180,
+                  color: AppPalette.pearlWhite,
                 ),
+                Positioned(
+                  left: 70,
+                  top: 70,
+                  child: Icon(
+                    MdiIcons.wifiOff,
+                    size: 42,
+                    color: AppPalette.pearlWhite,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "It seems like there is an issue with you internet",
+              textAlign: TextAlign.center,
+              maxLines: 6,
+
+              style: TextStyle(
+                fontSize: AppPalette.bodyLarge,
+                color: AppPalette.secondaryText,
+                decoration: TextDecoration.none,
               ),
             ),
-            Center(
-              child: Icon(
-                MdiIcons.cellphone,
-                size: 90,
-                color: AppPalette.pearlWhite,
-              ),
-            ),
-            SizedBox(height: 28),
-            Center(child: Icon(MdiIcons.wifiOff, color: AppPalette.pearlWhite)),
-          ],
-        ),
-      ],
+          ),
+        ],
+      ),
     );
   }
 }

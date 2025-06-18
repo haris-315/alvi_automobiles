@@ -31,6 +31,7 @@ class AppPalette {
   static const Color secondaryBackground = Color(0xFF252525);
   static const Color surfaceColor = Color(0xFF333333);
   static const Color cardColor = Color(0xFF2A2A2A);
+  static const Color scaffoldBackground = Colors.black;
 
   // Typography
   static const String fontFamily = 'Roboto';
@@ -54,8 +55,8 @@ class AppPalette {
 class AppTheme {
   static ThemeData darkTheme() {
     return ThemeData.dark().copyWith(
-      scaffoldBackgroundColor: AppPalette.primaryBackground,
-      
+      scaffoldBackgroundColor: AppPalette.scaffoldBackground,
+
       colorScheme: const ColorScheme.dark(
         primary: AppPalette.racingRed,
         secondary: AppPalette.goldAccent,
