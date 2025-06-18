@@ -54,6 +54,8 @@ class AppPalette {
 class AppTheme {
   static ThemeData darkTheme() {
     return ThemeData.dark().copyWith(
+      scaffoldBackgroundColor: AppPalette.primaryBackground,
+      
       colorScheme: const ColorScheme.dark(
         primary: AppPalette.racingRed,
         secondary: AppPalette.goldAccent,
