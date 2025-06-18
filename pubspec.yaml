@@ -38,6 +38,8 @@ dependencies:
   dio: ^5.8.0+1
   page_transition: ^2.2.1
   flutter_material_design_icons: ^1.1.7447
+  shimmer: ^3.0.0
+  fpdart: ^1.1.1
 
 
 dev_dependencies:

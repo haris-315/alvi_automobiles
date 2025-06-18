@@ -5,6 +5,7 @@ PreferredSizeWidget alviAppBar({
   String title = "Alvi Automobiles",
   List<Widget> actions = const [],
   bool shouldShowPopButton = true,
+  bool hasDrawer = false,
 }) => AppBar(
   centerTitle: true,
   backgroundColor: AppPalette.scaffoldBackground,
@@ -16,4 +17,5 @@ PreferredSizeWidget alviAppBar({
       overflow: TextOverflow.ellipsis,
     ),
   ),
+  leading: hasDrawer ? DrawerButton(color: AppPalette.pearlWhite) : null,
 );
