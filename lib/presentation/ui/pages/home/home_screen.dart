@@ -2,6 +2,7 @@ import 'package:alvi_automobiles/presentation/state_management/home/cubit/home_c
 import 'package:alvi_automobiles/presentation/ui/theme/palette/app_palette.dart';
 import 'package:alvi_automobiles/presentation/ui/widgets/common/alvi_appbar.dart';
 import 'package:alvi_automobiles/presentation/ui/widgets/common/alvi_drawer.dart';
+import 'package:alvi_automobiles/presentation/ui/widgets/home_widgets/faqs_section.dart';
 import 'package:alvi_automobiles/presentation/ui/widgets/home_widgets/home_shimmer.dart';
 import 'package:alvi_automobiles/presentation/ui/widgets/home_widgets/page_item.dart';
 import 'package:flutter/material.dart';
@@ -34,11 +35,13 @@ class _AlviHomeState extends State<AlviHome> {
               state is HomeLoading
                   ? HomeShimmer()
                   : state is HomeLoaded
-                  ? ListView(
-                    children:
-                        state.landingData
-                            .map((li) => VehicleCard(li: li))
-                            .toList(),
+                  ? SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        ...state.landingData.map((li) => PageItem(li: li)),
+                        FaqsSection(),
+                      ],
+                    ),
                   )
                   : state is HomeError
                   ? Text("There was an error...")

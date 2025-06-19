@@ -36,51 +36,97 @@ class _AlviDrawerState extends State<AlviDrawer> {
       builder: (context, state) {
         return Drawer(
           backgroundColor: AppPalette.secondaryBackground,
-          child:
-              state is DrawerLoading
-                  ? Center(
-                    child: CircularProgressIndicator(
-                      color: AppPalette.goldAccent,
+          width: MediaQuery.of(context).size.width * 0.78,
+          child: state is DrawerLoading
+              ? Center(
+                  child: CircularProgressIndicator(
+                    color: AppPalette.goldAccent,
+                  ),
+                )
+              : state is DrawerLoaded
+                  ? Column(
+                      children: [
+                        // Header Section
+                        Container(
+                          height: 180,
+                          decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.3),
+                            border: Border(
+                              bottom: BorderSide(
+                                color: AppPalette.goldAccent.withOpacity(0.2),
+                                width: 1,
+                              ),
+                            ),
+                          ),
+                          child: Center(
+                            child: Image.asset(
+                              "assets/alvi_no_bg.gif",
+                              width: 160,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+                        
+                        // Menu Items
+                        Expanded(
+                          child: ListView(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            children: [
+                              DrawerItemWidget(
+                                title: "Home",
+                                onClick: () {},
+                                icon: Icons.home_outlined,
+                                isSelected: false, // Add your selection logic
+                              ),
+                              ...state.drawerItems.map(
+                                (di) => DrawerItemWidget(
+                                  title: di.title,
+                                  onClick: () {},
+                                  icon: MdiIcons.carOutline,
+                                  isSelected: false,
+                                ),
+                              ),
+                              DrawerItemWidget(
+                                title: "Blog",
+                                onClick: () {},
+                                icon: Icons.article_outlined,
+                                isSelected: false,
+                              ),
+                              DrawerItemWidget(
+                                title: "Community",
+                                onClick: () {},
+                                icon: Icons.people_outline,
+                                isSelected: false,
+                              ),
+                              DrawerItemWidget(
+                                title: "Company",
+                                onClick: () {},
+                                icon: MdiIcons.officeBuildingOutline,
+                                isSelected: false,
+                              ),
+                            ],
+                          ),
+                        ),
+                        
+                        // Footer Section
+                        Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Text(
+                            'Alvi Automobiles © ${DateTime.now().year}',
+                            style: TextStyle(
+                              color: AppPalette.secondaryText.withOpacity(0.6),
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  : Center(
+                      child: Text(
+                        "There was an error",
+                        style: TextStyle(color: AppPalette.secondaryText),
+                      ),
                     ),
-                  )
-                  : state is DrawerLoaded
-                  ? ListView(
-                    children: [
-                      DrawerHeader(
-                        child: Column(
-                          children: [Image.asset("assets/alvi_no_bg.gif")],
-                        ),
-                      ),
-                      DrawerItemWidget(
-                        title: "Home",
-                        onClick: () {},
-                        icon: Icons.home,
-                      ),
-                      ...state.drawerItems.map(
-                        (di) => DrawerItemWidget(
-                          title: di.title,
-                          onClick: () {},
-                          icon: MdiIcons.car,
-                        ),
-                      ),
-                      DrawerItemWidget(
-                        title: "Blog",
-                        onClick: () {},
-                        icon: Icons.pages,
-                      ),
-                      DrawerItemWidget(
-                        title: "Community",
-                        onClick: () {},
-                        icon: Icons.people,
-                      ),
-                      DrawerItemWidget(
-                        title: "Company",
-                        onClick: () {},
-                        icon: MdiIcons.officeBuilding,
-                      ),
-                    ],
-                  )
-                  : Text("There was an error"),
         );
       },
     );

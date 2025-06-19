@@ -17,5 +17,5 @@ PreferredSizeWidget alviAppBar({
       overflow: TextOverflow.ellipsis,
     ),
   ),
-  leading: hasDrawer ? DrawerButton(color: AppPalette.pearlWhite) : null,
+  leading: hasDrawer ? DrawerButton(color: AppPalette.goldAccent) : null,
 );
