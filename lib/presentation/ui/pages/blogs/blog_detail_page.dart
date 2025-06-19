@@ -8,21 +8,68 @@ import 'package:flutter/material.dart';
 import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:intl/intl.dart';
 
-class BlogDetailPage extends StatelessWidget {
+class BlogDetailPage extends StatefulWidget {
   final Blog blog;
 
   const BlogDetailPage({super.key, required this.blog});
 
   @override
+  State<BlogDetailPage> createState() => _BlogDetailPageState();
+}
+
+class _BlogDetailPageState extends State<BlogDetailPage> {
+  final ScrollController _scrollController = ScrollController();
+  bool shouldShowFab = false;
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(() {
+      if (_scrollController.offset >= 180) {
+        setState(() {
+          shouldShowFab = true;
+        });
+      } else {
+        setState(() {
+          shouldShowFab = false;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final formattedDate = DateFormat(
       'MMMM dd, yyyy',
-    ).format(blog.publishedDate);
+    ).format(widget.blog.publishedDate);
 
     return Scaffold(
+      floatingActionButton:
+          shouldShowFab
+              ? FloatingActionButton.small(
+                backgroundColor: AppPalette.goldAccent,
+
+                onPressed: () {
+                  _scrollController.animateTo(
+                    0,
+                    duration: Duration(milliseconds: 600),
+                    curve: Curves.linear,
+                  );
+                },
+                child: Icon(
+                  Icons.arrow_upward,
+                  color: AppPalette.scaffoldBackground,
+                ),
+              )
+              : null,
       appBar: AppBar(
         title: Text(
-          blog.chapter.toUpperCase(),
+          widget.blog.chapter.toUpperCase(),
           style: TextStyle(
             color: Colors.white,
             fontSize: 16,
@@ -35,12 +82,13 @@ class BlogDetailPage extends StatelessWidget {
       ),
       backgroundColor: Colors.grey[900],
       body: SingleChildScrollView(
+        controller: _scrollController,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CachedNetworkImage(
               imageUrl:
-                  "${NetworkConstants.baseUrlNoSlash}${blog.featuredImage}",
+                  "${NetworkConstants.baseUrlNoSlash}${widget.blog.featuredImage}",
               width: double.infinity,
               height: 280,
               fit: BoxFit.cover,
@@ -75,7 +123,7 @@ class BlogDetailPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    blog.title,
+                    widget.blog.title,
                     style: TextStyle(
                       color: AppPalette.pearlWhite,
                       fontSize: 24,
@@ -91,7 +139,7 @@ class BlogDetailPage extends StatelessWidget {
                         radius: 20,
                         backgroundColor: Colors.grey[800],
                         backgroundImage: CachedNetworkImageProvider(
-                          "${NetworkConstants.baseUrlNoSlash}${blog.author.authorImage}",
+                          "${NetworkConstants.baseUrlNoSlash}${widget.blog.author.authorImage}",
                         ),
                       ),
                       const SizedBox(width: 12),
@@ -99,7 +147,7 @@ class BlogDetailPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            blog.author.name,
+                            widget.blog.author.name,
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,
@@ -129,7 +177,7 @@ class BlogDetailPage extends StatelessWidget {
                               ),
                               SizedBox(width: 5),
                               Text(
-                                blog.comments.toString(),
+                                widget.blog.comments.toString(),
                                 style: TextStyle(
                                   color: AppPalette.secondaryText,
                                 ),
@@ -146,7 +194,7 @@ class BlogDetailPage extends StatelessWidget {
                               ),
                               SizedBox(width: 5),
                               Text(
-                                blog.likes.toString(),
+                                widget.blog.likes.toString(),
                                 style: TextStyle(
                                   color: AppPalette.secondaryText,
                                   fontSize: 12,
@@ -201,7 +249,7 @@ class BlogDetailPage extends StatelessWidget {
                   const SizedBox(height: 16),
 
                   Text(
-                    blog.content,
+                    widget.blog.content,
                     style: TextStyle(
                       color: Colors.grey[300],
                       fontSize: 16,
@@ -210,12 +258,12 @@ class BlogDetailPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 32),
 
-                  if (blog.tags.isNotEmpty)
+                  if (widget.blog.tags.isNotEmpty)
                     Wrap(
                       spacing: 8,
                       runSpacing: 8,
                       children:
-                          blog.tags
+                          widget.blog.tags
                               .map(
                                 (tag) => Container(
                                   padding: const EdgeInsets.symmetric(
@@ -251,13 +299,4 @@ class BlogDetailPage extends StatelessWidget {
       ),
     );
   }
-
-  // void _shareBlog(BuildContext context) {
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //     SnackBar(
-  //       content: Text('Sharing ${blog.title}'),
-  //       backgroundColor: AppPalette.goldAccent,
-  //     ),
-  //   );
-  // }
 }

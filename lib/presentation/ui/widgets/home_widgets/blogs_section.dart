@@ -1,7 +1,7 @@
 import 'package:alvi_automobiles/core/network/constants/network_constants.dart';
 import 'package:alvi_automobiles/data/models/blogs/blog.dart';
 import 'package:alvi_automobiles/data/static_data/static_blog_data/blogs_data.dart';
-import 'package:alvi_automobiles/presentation/ui/pages/home/blog_detail_page.dart';
+import 'package:alvi_automobiles/presentation/ui/pages/blogs/blog_detail_page.dart';
 import 'package:alvi_automobiles/presentation/ui/theme/palette/app_palette.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';

@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 PreferredSizeWidget alviAppBar({
   String title = "Alvi Automobiles",
   List<Widget> actions = const [],
+  Widget? leading,
   bool shouldShowPopButton = true,
-  bool hasDrawer = false,
+  bool hasDrawer = true,
 }) => AppBar(
   centerTitle: true,
   backgroundColor: AppPalette.scaffoldBackground,
@@ -17,5 +18,6 @@ PreferredSizeWidget alviAppBar({
       overflow: TextOverflow.ellipsis,
     ),
   ),
-  leading: hasDrawer ? DrawerButton(color: AppPalette.goldAccent) : null,
+  leading: leading,
+  
 );

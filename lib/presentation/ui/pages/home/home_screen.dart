@@ -17,10 +17,24 @@ class AlviHome extends StatefulWidget {
 }
 
 class _AlviHomeState extends State<AlviHome> {
+  final ScrollController _scrollController = ScrollController();
+  bool shouldShowFab = false;
+
   @override
   void initState() {
     super.initState();
     context.read<HomeCubit>().loadLandingData(context);
+    _scrollController.addListener(() {
+      if (_scrollController.offset >= 180) {
+        setState(() {
+          shouldShowFab = true;
+        });
+      } else {
+        setState(() {
+          shouldShowFab = false;
+        });
+      }
+    });
   }
 
   @override
@@ -28,7 +42,25 @@ class _AlviHomeState extends State<AlviHome> {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         return Scaffold(
-          drawer: AlviDrawer(),
+          floatingActionButton:
+              shouldShowFab
+                  ? FloatingActionButton.small(
+                    backgroundColor: AppPalette.goldAccent,
+
+                    onPressed: () {
+                      _scrollController.animateTo(
+                        0,
+                        duration: Duration(milliseconds: 600),
+                        curve: Curves.linear,
+                      );
+                    },
+                    child: Icon(
+                      Icons.arrow_upward,
+                      color: AppPalette.scaffoldBackground,
+                    ),
+                  )
+                  : null,
+          endDrawer: AlviDrawer(),
           appBar: alviAppBar(hasDrawer: true),
 
           backgroundColor: AppPalette.scaffoldBackground,
@@ -37,6 +69,7 @@ class _AlviHomeState extends State<AlviHome> {
                   ? HomeLoader()
                   : state is HomeLoaded
                   ? SingleChildScrollView(
+                    controller: _scrollController,
                     child: Column(
                       children: [
                         ...state.landingData.map((li) => PageItem(li: li)),
@@ -46,7 +79,7 @@ class _AlviHomeState extends State<AlviHome> {
                     ),
                   )
                   : state is HomeError
-                  ? Text("There was an error...")
+                  ? Center(child: Text("There was an error..."))
                   : SizedBox.shrink(),
         );
       },

@@ -1,6 +1,9 @@
+
+
 import 'package:alvi_automobiles/core/network/cubit/network_cubit.dart';
 import 'package:alvi_automobiles/presentation/ui/bootstrap/network/no_connection_page.dart';
 import 'package:alvi_automobiles/presentation/ui/pages/home/home_screen.dart';
+import 'package:alvi_automobiles/presentation/ui/theme/palette/app_palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
@@ -28,7 +31,7 @@ class _AlviSplashState extends State<AlviSplash>
       duration: const Duration(milliseconds: 1800),
     );
 
-    // Logo scale animation
+    
     _logoScale = Tween<double>(begin: 0.8, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
@@ -36,7 +39,7 @@ class _AlviSplashState extends State<AlviSplash>
       ),
     );
 
-    // Text opacity animation
+    
     _textOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
@@ -44,7 +47,7 @@ class _AlviSplashState extends State<AlviSplash>
       ),
     );
 
-    // Text slide animation
+    
     _textSlide = Tween<Offset>(
       begin: const Offset(0, 0.5),
       end: Offset.zero,
@@ -55,7 +58,7 @@ class _AlviSplashState extends State<AlviSplash>
       ),
     );
 
-    // Progress animation
+    
     _progressValue = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
@@ -69,7 +72,6 @@ class _AlviSplashState extends State<AlviSplash>
   }
 
   void checkNetworkAvailability() async {
-    // Your existing network check logic
     await Future.delayed(const Duration(seconds: 2));
     context.read<NetworkCubit>().checkForNetwork(
       availabilityCallback: () {
@@ -111,7 +113,7 @@ class _AlviSplashState extends State<AlviSplash>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Logo with scale animation
+              
               ScaleTransition(
                 scale: _logoScale,
                 child: Column(
@@ -127,17 +129,17 @@ class _AlviSplashState extends State<AlviSplash>
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
-                        color: Colors.white,
+                        color: AppPalette.accentText,
                         letterSpacing: 2.0,
                       ),
                     ),
                   ],
                 ),
               ),
-              
+
               const SizedBox(height: 40),
+
               
-              // Text with slide and fade animation
               FadeTransition(
                 opacity: _textOpacity,
                 child: SlideTransition(
@@ -149,7 +151,7 @@ class _AlviSplashState extends State<AlviSplash>
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
-                          color: Colors.white.withOpacity(0.8),
+                          color: Colors.white.withValues(alpha: 0.8),
                           letterSpacing: 1.2,
                         ),
                       ),
@@ -159,7 +161,7 @@ class _AlviSplashState extends State<AlviSplash>
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
-                          color: Colors.white.withOpacity(0.8),
+                          color: Colors.white.withValues(alpha: 0.8),
                           letterSpacing: 1.2,
                         ),
                       ),
@@ -167,10 +169,10 @@ class _AlviSplashState extends State<AlviSplash>
                   ),
                 ),
               ),
-              
+
               const SizedBox(height: 40),
+
               
-              // Animated progress indicator
               AnimatedBuilder(
                 animation: _progressValue,
                 builder: (context, child) {
