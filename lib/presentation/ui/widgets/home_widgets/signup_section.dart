@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:alvi_automobiles/core/functions/email_verification.dart';
 import 'package:alvi_automobiles/presentation/ui/theme/palette/app_palette.dart';
+import 'package:alvi_automobiles/presentation/ui/widgets/common/fields/auth_input_field.dart';
 import 'package:flutter/material.dart';
 
 class SignupSection extends StatefulWidget {
@@ -62,7 +63,7 @@ class _SignupSectionState extends State<SignupSection> {
                 ),
                 SizedBox(height: 8),
 
-                SignUpField(
+                AuthInputField(
                   controller: _firstNameController,
                   hint: "First Name",
                   label: "First Name",
@@ -75,7 +76,7 @@ class _SignupSectionState extends State<SignupSection> {
                     return null;
                   },
                 ),
-                SignUpField(
+                AuthInputField(
                   controller: _lastNameController,
                   hint: "First Name",
                   label: "Last Name",
@@ -84,7 +85,7 @@ class _SignupSectionState extends State<SignupSection> {
                     return null;
                   },
                 ),
-                SignUpField(
+                AuthInputField(
                   controller: _emailController,
                   hint: "Email",
                   label: "Email",
@@ -98,7 +99,7 @@ class _SignupSectionState extends State<SignupSection> {
                     return null;
                   },
                 ),
-                SignUpField(
+                AuthInputField(
                   controller: _phoneController,
                   hint: "Phone",
                   label: "Phone",
@@ -112,7 +113,7 @@ class _SignupSectionState extends State<SignupSection> {
                     return null;
                   },
                 ),
-                SignUpField(
+                AuthInputField(
                   controller: _passController,
                   hint: "Password",
                   label: "Password",
@@ -129,7 +130,7 @@ class _SignupSectionState extends State<SignupSection> {
                     return null;
                   },
                 ),
-                SignUpField(
+                AuthInputField(
                   controller: _passConfirmController,
                   hint: "Confirm Password",
                   label: "Confirm Password",
@@ -179,86 +180,6 @@ class _SignupSectionState extends State<SignupSection> {
                 SizedBox(height: 20),
               ],
             ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class SignUpField extends StatefulWidget {
-  final String hint;
-  final String label;
-  final IconData icon;
-  final bool forPassword;
-  final double width;
-  final TextEditingController controller;
-  final Function(String?) validator;
-  final TextInputType keyboardType;
-
-  const SignUpField({
-    super.key,
-    required this.controller,
-    required this.hint,
-    required this.label,
-    required this.icon,
-    this.forPassword = false,
-    this.width = 340,
-    required this.validator,
-    this.keyboardType = TextInputType.text,
-  });
-
-  @override
-  State<SignUpField> createState() => _SignUpFieldState();
-}
-
-class _SignUpFieldState extends State<SignUpField> {
-  OutlineInputBorder _inputBorder(Color color) => OutlineInputBorder(
-    borderSide: BorderSide(color: AppPalette.pearlWhite),
-    borderRadius: BorderRadius.circular(12),
-  );
-  bool passVisible = false;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
-      child: SizedBox(
-        width: widget.width,
-        height: 55,
-        child: TextFormField(
-          controller: widget.controller,
-          validator: (val) {
-            widget.validator(val);
-            return null;
-          },
-          cursorColor: AppPalette.goldAccent,
-          style: TextStyle(color: AppPalette.accentText),
-          obscureText: widget.forPassword && !passVisible,
-
-          decoration: InputDecoration(
-            border: _inputBorder(AppPalette.secondaryBackground),
-            focusedBorder: _inputBorder(AppPalette.goldAccent),
-            hintStyle: TextStyle(color: AppPalette.disabledText),
-            labelStyle: TextStyle(color: AppPalette.secondaryText),
-
-            hintText: widget.hint,
-            label: Text(widget.label),
-            prefixIcon: Icon(widget.icon, color: AppPalette.goldAccent),
-            suffixIcon:
-                !widget.forPassword
-                    ? null
-                    : GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          passVisible = !passVisible;
-                        });
-                      },
-                      child: Icon(
-                        passVisible ? Icons.visibility_off : Icons.visibility,
-                        size: 18,
-                        color: AppPalette.goldAccent,
-                      ),
-                    ),
           ),
         ),
       ),

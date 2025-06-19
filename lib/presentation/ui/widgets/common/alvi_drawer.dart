@@ -1,6 +1,8 @@
 import 'package:alvi_automobiles/core/services/snackbar_service/snackbar_service.dart';
+import 'package:alvi_automobiles/presentation/state_management/auth/cubit/auth_cubit.dart';
 import 'package:alvi_automobiles/presentation/state_management/drawer/cubit/drawer_cubit.dart';
 import 'package:alvi_automobiles/presentation/ui/pages/blogs/all_blogs.dart';
+import 'package:alvi_automobiles/presentation/ui/pages/company/comapny_info_page.dart';
 import 'package:alvi_automobiles/presentation/ui/theme/palette/app_palette.dart';
 import 'package:alvi_automobiles/presentation/ui/widgets/drawer_widgets/drawer_item_widget.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +55,7 @@ class _AlviDrawerState extends State<AlviDrawer> {
                   )
                   : state is DrawerLoaded
                   ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
                         height: 180,
@@ -67,12 +70,82 @@ class _AlviDrawerState extends State<AlviDrawer> {
                             ),
                           ),
                         ),
-                        child: Center(
-                          child: Image.asset(
-                            "assets/alvi_no_bg.gif",
-                            width: 160,
-                            fit: BoxFit.contain,
-                          ),
+                        child: Column(
+                          children: [
+                            SizedBox(height: 18),
+                            Center(
+                              child: Image.asset(
+                                "assets/alvi_no_bg.gif",
+
+                                width: 160,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                            Divider(indent: 23, endIndent: 23),
+                            SizedBox(height: 18),
+
+                            if (context.read<AuthCubit>().user != null)
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(width: 8),
+                                  CircleAvatar(
+                                    backgroundColor: Colors
+                                        .primaries[(context
+                                                .read<AuthCubit>()
+                                                .user!
+                                                .firstName
+                                                .hashCode) %
+                                            Colors.primaries.length]
+                                        .withValues(alpha: 0.7),
+                                    radius: 28,
+                                    child: Text(
+                                      context
+                                          .read<AuthCubit>()
+                                          .user!
+                                          .firstName[0]
+                                          .toUpperCase(),
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 24,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: 16),
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "${context.read<AuthCubit>().user!.firstName} ${context.read<AuthCubit>().user!.lastName}",
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color: AppPalette.primaryText,
+                                          ),
+                                        ),
+                                        SizedBox(height: 8),
+                                        Text(
+                                          context.read<AuthCubit>().user!.email,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: AppPalette.primaryText,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                          ],
                         ),
                       ),
 
@@ -120,7 +193,17 @@ class _AlviDrawerState extends State<AlviDrawer> {
                             ),
                             DrawerItemWidget(
                               title: "Company",
-                              onClick: () {},
+                              onClick: () {
+                                defaultAction(() {
+                                  Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      type: PageTransitionType.rightToLeft,
+                                      child: ComapnyInfoPage(),
+                                    ),
+                                  );
+                                });
+                              },
                               icon: MdiIcons.officeBuildingOutline,
                               isSelected: false,
                             ),

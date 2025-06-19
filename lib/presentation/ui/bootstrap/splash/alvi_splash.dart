@@ -1,7 +1,10 @@
-
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:alvi_automobiles/core/network/cubit/network_cubit.dart';
+import 'package:alvi_automobiles/core/services/session_service/session_store_service.dart';
+import 'package:alvi_automobiles/presentation/state_management/auth/cubit/auth_cubit.dart';
 import 'package:alvi_automobiles/presentation/ui/bootstrap/network/no_connection_page.dart';
+import 'package:alvi_automobiles/presentation/ui/pages/auth/sign_in_page.dart';
 import 'package:alvi_automobiles/presentation/ui/pages/home/home_screen.dart';
 import 'package:alvi_automobiles/presentation/ui/theme/palette/app_palette.dart';
 import 'package:flutter/material.dart';
@@ -22,16 +25,17 @@ class _AlviSplashState extends State<AlviSplash>
   late Animation<double> _textOpacity;
   late Animation<Offset> _textSlide;
   late Animation<double> _progressValue;
+  
 
   @override
   void initState() {
     super.initState();
+
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1800),
     );
 
-    
     _logoScale = Tween<double>(begin: 0.8, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
@@ -39,7 +43,6 @@ class _AlviSplashState extends State<AlviSplash>
       ),
     );
 
-    
     _textOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
@@ -47,7 +50,6 @@ class _AlviSplashState extends State<AlviSplash>
       ),
     );
 
-    
     _textSlide = Tween<Offset>(
       begin: const Offset(0, 0.5),
       end: Offset.zero,
@@ -58,7 +60,6 @@ class _AlviSplashState extends State<AlviSplash>
       ),
     );
 
-    
     _progressValue = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
@@ -74,7 +75,20 @@ class _AlviSplashState extends State<AlviSplash>
   void checkNetworkAvailability() async {
     await Future.delayed(const Duration(seconds: 2));
     context.read<NetworkCubit>().checkForNetwork(
-      availabilityCallback: () {
+      availabilityCallback: () async {
+        String? session = await SessionStoreService.getSession();
+        if (session == null || session.isEmpty) {
+          Navigator.pushReplacement(
+            context,
+            PageTransition(
+              type: PageTransitionType.fade,
+              duration: const Duration(milliseconds: 800),
+              child: SignInPage(),
+            ),
+          );
+          return;
+        }
+        context.read<AuthCubit>().setUser();
         Navigator.pushReplacement(
           context,
           PageTransition(
@@ -113,7 +127,6 @@ class _AlviSplashState extends State<AlviSplash>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              
               ScaleTransition(
                 scale: _logoScale,
                 child: Column(
@@ -139,7 +152,6 @@ class _AlviSplashState extends State<AlviSplash>
 
               const SizedBox(height: 40),
 
-              
               FadeTransition(
                 opacity: _textOpacity,
                 child: SlideTransition(
@@ -172,7 +184,6 @@ class _AlviSplashState extends State<AlviSplash>
 
               const SizedBox(height: 40),
 
-              
               AnimatedBuilder(
                 animation: _progressValue,
                 builder: (context, child) {

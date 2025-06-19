@@ -1,5 +1,6 @@
 import 'package:alvi_automobiles/core/network/cubit/network_cubit.dart';
 import 'package:alvi_automobiles/core/observer/app_observer.dart';
+import 'package:alvi_automobiles/presentation/state_management/auth/cubit/auth_cubit.dart';
 import 'package:alvi_automobiles/presentation/state_management/drawer/cubit/drawer_cubit.dart';
 import 'package:alvi_automobiles/presentation/state_management/home/cubit/home_cubit.dart';
 import 'package:alvi_automobiles/presentation/ui/bootstrap/splash/alvi_splash.dart';
@@ -18,14 +19,17 @@ class AlviAutomobiles extends StatelessWidget {
   Widget build(BuildContext context) {
     precacheImage(AssetImage("assets/alvi.gif"), context);
     precacheImage(AssetImage("assets/splash_wheel.gif"), context);
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => NetworkCubit()),
         BlocProvider(create: (_) => DrawerCubit()),
         BlocProvider(create: (_) => HomeCubit()),
+        BlocProvider(create: (_) => AuthCubit()),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Alvi Automobiles',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         ),

@@ -1,3 +1,4 @@
+import 'package:alvi_automobiles/core/services/snackbar_service/snackbar_service.dart';
 import 'package:alvi_automobiles/presentation/state_management/home/cubit/home_cubit.dart';
 import 'package:alvi_automobiles/presentation/ui/theme/palette/app_palette.dart';
 import 'package:alvi_automobiles/presentation/ui/widgets/common/alvi_appbar.dart';
@@ -6,7 +7,6 @@ import 'package:alvi_automobiles/presentation/ui/widgets/home_widgets/blogs_sect
 import 'package:alvi_automobiles/presentation/ui/widgets/home_widgets/faqs_section.dart';
 import 'package:alvi_automobiles/presentation/ui/widgets/home_widgets/home_loader.dart';
 import 'package:alvi_automobiles/presentation/ui/widgets/home_widgets/page_item.dart';
-import 'package:alvi_automobiles/presentation/ui/widgets/home_widgets/signup_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,6 +25,7 @@ class _AlviHomeState extends State<AlviHome> {
   void initState() {
     super.initState();
     context.read<HomeCubit>().loadLandingData(context);
+
     _scrollController.addListener(() {
       if (_scrollController.offset >= 180) {
         setState(() {
@@ -42,6 +43,13 @@ class _AlviHomeState extends State<AlviHome> {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
+        if (state is HomeError) {
+          SnackbarService(
+            context,
+            snackbarType: SnackbarType.ERROR,
+            details: "There was an error while loading data.",
+          );
+        }
         return Scaffold(
           floatingActionButton:
               shouldShowFab
@@ -76,7 +84,7 @@ class _AlviHomeState extends State<AlviHome> {
                         ...state.landingData.map((li) => PageItem(li: li)),
                         FaqsSection(),
                         BlogsSection(),
-                        SignupSection(),
+                        // SignupSection(),
                       ],
                     ),
                   )
