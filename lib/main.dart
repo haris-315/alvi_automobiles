@@ -1,6 +1,7 @@
 import 'package:alvi_automobiles/core/network/cubit/network_cubit.dart';
 import 'package:alvi_automobiles/core/observer/app_observer.dart';
 import 'package:alvi_automobiles/presentation/state_management/drawer/cubit/drawer_cubit.dart';
+import 'package:alvi_automobiles/presentation/state_management/home/cubit/home_cubit.dart';
 import 'package:alvi_automobiles/presentation/ui/bootstrap/splash/alvi_splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,6 +21,7 @@ class AlviAutomobiles extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => NetworkCubit()),
         BlocProvider(create: (_) => DrawerCubit()),
+        BlocProvider(create: (_) => HomeCubit()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

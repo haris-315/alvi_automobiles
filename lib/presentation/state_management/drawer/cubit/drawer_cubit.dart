@@ -1,5 +1,5 @@
 import 'package:alvi_automobiles/core/network/models/network_error.dart';
-import 'package:alvi_automobiles/data/data_classes/drawer/drawer_item.dart';
+import 'package:alvi_automobiles/data/models/drawer/drawer_item.dart';
 import 'package:alvi_automobiles/data/repos/drawer_repo/drawer_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -1,7 +1,7 @@
 import 'package:alvi_automobiles/core/dio/dio_settings.dart';
 import 'package:alvi_automobiles/core/network/constants/network_constants.dart';
 import 'package:alvi_automobiles/core/network/models/network_error.dart';
-import 'package:alvi_automobiles/data/data_classes/drawer/drawer_item.dart';
+import 'package:alvi_automobiles/data/models/drawer/drawer_item.dart';
 import 'package:alvi_automobiles/data/repos/interface/repository.dart';
 import 'package:fpdart/fpdart.dart';
 
