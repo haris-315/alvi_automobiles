@@ -159,7 +159,7 @@ class _PageItemState extends State<PageItem>
           ],
         ),
         SizedBox(height: 16),
-        Divider(indent: 26, endIndent: 26),
+        Divider(indent: 26, endIndent: 26, color: AppPalette.disabledText),
 
         SizedBox(height: 35),
       ],

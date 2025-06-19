@@ -35,38 +35,47 @@ class _FaqsSectionState extends State<FaqsSection> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Image.asset(
-            "assets/faq_image.webp",
-            width: 300,
-            height: 250,
-            fit: BoxFit.cover,
-            alignment: Alignment.center,
+        Align(
+          alignment: Alignment.center,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.asset(
+              "assets/faq_image.webp",
+              width: 300,
+              height: 250,
+              fit: BoxFit.cover,
+              alignment: Alignment.center,
+            ),
           ),
         ),
 
         const SizedBox(height: 24),
 
-        Text(
-          "FAQs",
-          style: TextStyle(
-            color: AppPalette.goldAccent,
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-            letterSpacing: 1.1,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Text(
+            "FAQs",
+            style: TextStyle(
+              color: AppPalette.goldAccent,
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 1.1,
+            ),
           ),
         ),
 
         const SizedBox(height: 8),
 
-        Text(
-          "Find answers to common questions",
-          style: TextStyle(
-            color: AppPalette.secondaryText.withValues(alpha: 0.8),
-            fontSize: 14,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Text(
+            "Find answers to common questions",
+            style: TextStyle(
+              color: AppPalette.secondaryText.withValues(alpha: 0.8),
+              fontSize: 14,
+            ),
           ),
         ),
 
@@ -124,7 +133,7 @@ class _FaqsSectionState extends State<FaqsSection> {
               style: TextStyle(
                 color: Colors.grey[100],
                 fontWeight: FontWeight.w600,
-                fontSize: 16,
+                fontSize: 15,
               ),
             ),
             iconColor: AppPalette.goldAccent,
