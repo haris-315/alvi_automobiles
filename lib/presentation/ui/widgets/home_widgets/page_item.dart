@@ -38,6 +38,12 @@ class _PageItemState extends State<PageItem>
   }
 
   @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [

@@ -16,6 +16,7 @@ class DrawerCubit extends Cubit<DrawerState> {
       emit(DrawerLoaded(drawerItems: _loadedItems));
       return;
     }
+    emit(DrawerLoading());
     final res = await _drawerRepo.getNavItems();
 
     res.fold((ne) => emit(DrawerError(error: ne)), (di) {

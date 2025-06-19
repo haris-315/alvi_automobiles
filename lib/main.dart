@@ -17,6 +17,7 @@ class AlviAutomobiles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     precacheImage(AssetImage("assets/alvi.gif"), context);
+    precacheImage(AssetImage("assets/splash_wheel.gif"), context);
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => NetworkCubit()),

@@ -4,7 +4,7 @@ import 'package:alvi_automobiles/presentation/ui/widgets/common/alvi_appbar.dart
 import 'package:alvi_automobiles/presentation/ui/widgets/common/alvi_drawer.dart';
 import 'package:alvi_automobiles/presentation/ui/widgets/home_widgets/blogs_section.dart';
 import 'package:alvi_automobiles/presentation/ui/widgets/home_widgets/faqs_section.dart';
-import 'package:alvi_automobiles/presentation/ui/widgets/home_widgets/home_shimmer.dart';
+import 'package:alvi_automobiles/presentation/ui/widgets/home_widgets/home_loader.dart';
 import 'package:alvi_automobiles/presentation/ui/widgets/home_widgets/page_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,7 +34,7 @@ class _AlviHomeState extends State<AlviHome> {
           backgroundColor: AppPalette.scaffoldBackground,
           body:
               state is HomeLoading
-                  ? HomeShimmer()
+                  ? HomeLoader()
                   : state is HomeLoaded
                   ? SingleChildScrollView(
                     child: Column(
